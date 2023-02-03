@@ -123,7 +123,7 @@ const concatFromWorker = async () => {
 ### @rontrol-dev/vite-presets
 vite的presets配置。
 
-## 二次packages
+## 二级packages
 借鉴于`angular`的模块管理。一个依赖包可以包含多个二级依赖包，减少引入依赖数量，方便管理。
 
 ```typescript
