@@ -68,7 +68,7 @@ interface IButtonProps {}
      - utils.ts
      - request_actor.ts
      - tests
-       -actor.spec.ts
+       - actor.spec.ts
 
 ## 为什么还要从`index.ts`导出？
 > 从`index.ts`看似有点画蛇添足，因为明明可以直接从文件导出。
