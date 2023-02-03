@@ -4,11 +4,11 @@
   * [packages 介绍](packages.md)
 
 * API 文档
-  * [@react2rx/core](apis/@react2rx_core.md)
-  * [@react2rx/request](apis/@react2rx_request.md)
-  * [@react2rx/router](apis/@react2rx_router.md)
-  * [@react2rx/persistence](apis/@react2rx_persistence.md)
-  * [@react2rx/bootstrap](apis/@react2rx_bootstrap.md)
+  * [@react2rx/core](@react2rx_core.md)
+  * [@react2rx/request](@react2rx_request.md)
+  * [@react2rx/router](@react2rx_router.md)
+  * [@react2rx/persistence](@react2rx_persistence.md)
+  * [@react2rx/bootstrap](@react2rx_bootstrap.md)
   
 * [代码规范](code_style.md)
 * [升级建议](suggestions.md)
