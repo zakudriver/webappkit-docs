@@ -5,7 +5,7 @@ webappkit 由 `@react2rx`，`@rontrol`和`@rontrol-dev`三大部分组成。
 
 ## @react2rx
 
-`@react2rx`完全脱离业务，是整个脚手架的核心实现。
+>`@react2rx`完全脱离业务，是整个脚手架的核心实现。
 
 ### @react2rx/core
 `@react2rx/core`是整个脚手架的核心。提供了`actor`对象，基于`rxjs`的状态流`store`，将状态流与`react`打通的一些列hook函数及组件，以及一些工具函数。
@@ -28,6 +28,8 @@ webappkit 由 `@react2rx`，`@rontrol`和`@rontrol-dev`三大部分组成。
 * `@react2rx/bootstrap/logger`子模块 实现了日志中间件
 
 ## @rontrol
+
+>`@rontrol`围绕业务。是基于@react2rx开发的功能性组件或函数
 
 ### @rontrol/access
 `@rontrol/access`提供登录加密；用户信息获取，用户权限控制；请求头authorization控制等关于用户权限控制的组件或函数。
@@ -94,7 +96,7 @@ const concatFromWorker = async () => {
 
 ## @rontrol-dev
 
-提供构建，部署，生成typescript接口代码和请求代码功能。包含vite配置，babel插件，devkit脚本和monobundle构建脚本。
+>提供构建，部署，生成typescript接口代码和请求代码功能。包含vite配置，babel插件，devkit脚本和monobundle构建脚本。
 
 ### @rontrol-dev/babel-preset
 `babel`的一些preset设置。
