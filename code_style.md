@@ -1,8 +1,8 @@
 ## 代码风格
-建议开启`@rontrol-dev/eslint-config`，按此执行。
+建议开启`@rontrol-dev/eslint-config`，按`eslint`提示执行。
 
-建议在项目内`eslint`配置加上对`interface`和`type`命名的约束。*`@rontrol-dev/eslint-config`还用于`webappkit`开发所以没有默认开启*
->即`interface`命名以`I`开头，`type`命名以`T`开头。以与第三方库的`interface`和`type`区分。
+建议在**项目中**`eslint`配置加上对`interface`和`type`命名的约束。*`@rontrol-dev/eslint-config`还用于`webappkit`开发所以没有默认开启*
+>即`interface`命名以`I`开头，`type`命名以`T`开头。以此与第三方库的`interface`和`type`区分。
 ```typescript
 // Incorrect
 interface ButtonProps {}
@@ -37,31 +37,31 @@ interface IButtonProps {}
 ## 目录结构
 
 * **组件**
-组件目录建议以下结构。
+>组件目录建议以下结构。
 
-- Button
-  - index.ts        // *required* 控制`export`导出哪些组件、函数、type或interface。
-  - Button.tsx      // *required* Button 组件的实现。
-  - types.ts        // *required* `type`或`interface`声明。
-  - ButtonGroup.tsx // *optional* 根据组件复杂度或许会有多个组件组成。
-  - icons.tsx       // *optional* 根据情况或许会有svg icon。
-  - ctx.tsx         // *optional* 根据组件复杂度或许会有`react context`。
-  - utils.tsx       // *optional* 根据组件复杂度或许会有辅助的工具函数。
+  - Button
+    - index.ts        // *required* 控制`export`导出哪些组件、函数、type或interface。
+    - Button.tsx      // *required* Button 组件的实现。
+    - types.ts        // *required* `type`或`interface`声明。
+    - ButtonGroup.tsx // *optional* 根据组件复杂度或许会有多个组件组成。
+    - icons.tsx       // *optional* 根据情况或许会有svg icon。
+    - ctx.tsx         // *optional* 根据组件复杂度或许会有`react context`。
+    - utils.tsx       // *optional* 根据组件复杂度或许会有辅助的工具函数。
 
 * **hook**
-- useDebounce
-  - index.ts       // *required* 控制`export`导出哪些函数、type或interface。
-  - useDebounce.ts // *required* useDebounce hook的实现
-  - types.ts       // *required* `type`或`interface`声明。
+  - use-debounce
+    - index.ts       // *required* 控制`export`导出哪些函数、type或interface。
+    - use_debounce.ts // *required* useDebounce hook的实现
+    - types.ts       // *required* `type`或`interface`声明。
 
-* 普通模块
->普通模块情况很多，只需要遵守从`index.ts`导出模块即可。
-- actor
-  - index.ts
-  - actor.ts
-  - types.ts
-  - utils.ts
-  - requestActor.ts
+* **普通模块**
+>普通模块情况很多，只需遵守从`index.ts`导出模块即可。
+   - actor
+     - index.ts
+     - actor.ts
+     - types.ts
+     - utils.ts
+     - request_actor.ts
 
 ## 为什么还要从`index.ts`导出？
 > 从`index.ts`看似有点画蛇添足，因为明明可以直接从文件导出。
