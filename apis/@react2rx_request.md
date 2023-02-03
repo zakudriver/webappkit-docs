@@ -163,7 +163,7 @@ const tapWhen =
   (next: () => void, ...actors: RequestActor[]): (actor$: Observable<Actor>) => Observable<never>
 ```
 
-```tsx
+```typescript
 {/* e.g */}
 <>
   {epicOn(tapWhen(() => fetch(), postRequestActor))}
