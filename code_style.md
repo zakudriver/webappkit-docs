@@ -47,12 +47,17 @@ interface IButtonProps {}
     - icons.tsx       // *optional* 根据情况或许会有svg icon。
     - ctx.tsx         // *optional* 根据组件复杂度或许会有`react context`。
     - utils.tsx       // *optional* 根据组件复杂度或许会有辅助的工具函数。
-
+    - tests           // *optional* 单元测试文件目录
+      - Button.spec.tsx  // *optional* Button 单元测试文件
+      - utils.spec.tsx   // *optional* utils 单元测试文件
+      
 * **hook**
   - use-debounce
-    - index.ts       // *required* 控制`export`导出哪些函数、type或interface。
+    - index.ts        // *required* 控制`export`导出哪些函数、type或interface。
     - use_debounce.ts // *required* useDebounce hook的实现
-    - types.ts       // *required* `type`或`interface`声明。
+    - types.ts        // *required* `type`或`interface`声明。
+    - tests           // *optional* 单元测试文件目录n
+      - use_debounce.spec.ts // *optional* useDebounce单元测试文件
 
 * **普通模块**
 >普通模块情况很多，只需遵守从`index.ts`导出模块即可。
@@ -62,6 +67,8 @@ interface IButtonProps {}
      - types.ts
      - utils.ts
      - request_actor.ts
+     - tests
+       -actor.spec.ts
 
 ## 为什么还要从`index.ts`导出？
 > 从`index.ts`看似有点画蛇添足，因为明明可以直接从文件导出。
