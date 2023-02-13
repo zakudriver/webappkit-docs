@@ -5,7 +5,7 @@
 
 ## 相较于老版
 
-1. 严格模式完全可用;
+1. **严格模式**完全可用;
 2. 构建工具从`webpack`改为`vite`。开发环境构建更快(快10倍?)
 3. `useRequest` 功能上相当于集合当初 `useRequest` 和 `useTempDataOfRequest`，并新增以下功能
    * 轮训(基于`rxjs`实现)
