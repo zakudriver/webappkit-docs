@@ -6,6 +6,7 @@
 const Router: FC<PropsWithChildren<RouterProps>> = ({ basename, children })
 ```
 
+
 ## `useRouter`
 相当于`useLocation`, `useNavigate`，`useParams`和`useHistory`的集合。
 
@@ -24,6 +25,7 @@ interface RouterContext<TParameters> {
 }
 ```
 
+
 ## `HistoryProvider`
 创建`history`和`Provider`组件。可从外部传入`history`（一般用于测试）。
 
@@ -31,6 +33,7 @@ interface RouterContext<TParameters> {
 // 函数签名
 const HistoryProvider: FC<PropsWithChildren<HistoryProviderProps>> = ({ children, hash, history: ht })
 ```
+
 
 ## `useHistory`
 获取`History`实例
@@ -49,6 +52,7 @@ const useHistory = (): History
 const React2rxRouterConnect = (): null
 ```
 
+
 ## `React2rxRouter`
 `React2rxRouter`是`HistoryProvider`,`React2rxConnect`,`Router`的打包，一般直接使用它即可。
 
@@ -56,6 +60,7 @@ const React2rxRouterConnect = (): null
 // 函数签名
 const React2rxRouter: FC<PropsWithChildren<React2rxRouterProps>> = ({ children, basename, history })
 ```
+
 
 ## `useLinkClickHandler`
 `useLinkClickHandler`是对点击事件屏蔽除鼠标左键以外，组合键和默认事件，并添加跳转路由逻辑。它是`Link`组件的主要实现。一般用直接使用。
@@ -68,6 +73,7 @@ const useLinkClickHandler = <E extends Element = HTMLAnchorElement>(
 ): ((event: MouseEvent<E>) => void)
 ```
 
+
 ## `Link`
 `Link`组件是对a标签的包裹，并屏蔽除鼠标左键以外，组合键和默认事件，只包含跳转路由逻辑。
 
@@ -78,6 +84,7 @@ const Link = forwardRef<HTMLAnchorElement, LinkProps>(function LinkWithRef(
   ref,
 )
 ```
+
 
 ## `NavLink`
 `NavLink`组件是对`Link`的包裹。提供`active`属性，适用于导航的选中状态。
@@ -99,6 +106,7 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLinkWith
 )
 ```
 
+
 ## `useBlocker`
 路由守卫。是对`history.block`的封装。适用于表单提交前对跳转路由的拦截操作。
 
@@ -106,6 +114,7 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(function NavLinkWith
 // 函数签名
 const useBlocker = (blocker: Blocker, when = true): void
 ```
+
 
 ## `Prompt`
 路由守卫组件。是`useBlocker`的应用，并增加弹窗提示功能。适用于表单提交前对跳转路由的拦截操作。
@@ -115,3 +124,8 @@ const useBlocker = (blocker: Blocker, when = true): void
 const Prompt: FC<PromptProps> = ({ message, when = true })
 ```
 
+
+## `useQueryState`
+`useQueryState`在`@react2rx/router`的子模块`@react2rx/router/state`
+
+`useQueryState`是将路由参数与`useState`状态绑定，方便读取和设置路由参数。

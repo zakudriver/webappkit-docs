@@ -3,6 +3,7 @@
 webappkit 由 `@react2rx`，`@rontrol`和`@rontrol-dev`三大部分组成。
 未来或许会有 `@rontrol-ui` 组件库。
 
+
 ## @react2rx
 
 >`@react2rx`完全脱离业务，是整个脚手架的核心实现。
@@ -26,6 +27,7 @@ webappkit 由 `@react2rx`，`@rontrol`和`@rontrol-dev`三大部分组成。
 
 * `@react2rx/bootstrap/config`子模块 实现了加载项目配置并提供读取配置的函数
 * `@react2rx/bootstrap/logger`子模块 实现了日志中间件
+
 
 ## @rontrol
 
@@ -110,12 +112,8 @@ const concatFromWorker = async () => {
 ### @rontrol-dev/eslint-config
 `eslint`配置。
 
-### @rontrol-dev/generate
-对文件写入操作进行的一些封装。
-
-### @rontrol-dev/generate-client
-基于`@rontrol-dev/ts-gen-client-from-openapi`，`@rontrol-dev/ts-gen-core`和`@rontrol-dev/ts-gen-definitions-from-json-schema`,
-根据openapi文件在项目内生成 http参数和响应的`typescript接口`定义代码 和 对应的http请求的`typescript`代码。
+### @rontrol-dev/generate-typescripe
+包含生成`typescript`代码，解析`openapi`并生成`client`代码的所有实现。
 
 ### @rontrol-dev/monobundle
 模块构建工具。将每个模块打包出commonjs版的cjs文件和esmodule版的mjs文件，以及`.d.ts`声明文件。
@@ -123,14 +121,3 @@ const concatFromWorker = async () => {
 ### @rontrol-dev/vite-presets
 vite的presets配置。
 
-## 二级packages
-借鉴于`angular`的模块管理。一个依赖包可以包含多个二级依赖包，减少引入依赖数量，方便管理。
-
-```typescript
-// e.g
-import { createBootstrap } from "@react2rx/bootstrap";
-import { useConfig } from "@react2rx/bootstrap/config";
-```
-
-### 如何实现？
-`typescript`目前的模块化解析不能通过`package.json`的`exports`指定引入`.d.ts`声明文件路径，只能指定源码的引入路径。查看`angular`的构建后模块目录发现，`.d.ts`声明文件路径只能通过模块所在的路径解析。所以打包构建的时候需要将自模块的`.d.ts`声明文件与源码分开打包，源码放在`dist`内，`.d.ts`声明文件放在真实路径。例如`@react2rx/persistence/local-cache`，`local-cache`子模块的`.d.ts`声明文件在`@react2rx/persistence/local-cache/index.d.ts`，而源码继续放在`@react2rx/persistence/dist/local-cache/index.mjs`

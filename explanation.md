@@ -35,3 +35,19 @@ useEffect(() => {
 
 在脚手架的开发环境是全程开启严格模式的。建议项目开发中也开启严格模式以便发现问题。
 >脚手架的开发环境只在`useRequest`的参数 `manual`为`false`时，使用的`useEffectOnce`通过判断是否为开发环境来跳过调用两次检查。(不跳过也可以，但会因为请求再快速取消打印多余的取消请求日志)
+
+
+
+## 二级packages
+借鉴于`angular`的模块管理。一个依赖包可以包含多个二级依赖包，减少引入依赖数量，方便管理。
+
+```typescript
+// e.g
+import { createBootstrap } from "@react2rx/bootstrap";
+import { useConfig } from "@react2rx/bootstrap/config";
+```
+
+### 如何实现？
+`typescript`目前的模块化解析不能通过`package.json`的`exports`指定引入`.d.ts`声明文件路径，只能指定源码的引入路径。查看`angular`的构建后模块目录发现，`.d.ts`声明文件路径只能通过模块所在的路径解析。所以打包构建的时候需要将自模块的`.d.ts`声明文件与源码分开打包，源码放在`dist`内，`.d.ts`声明文件放在真实路径。例如`@react2rx/persistence/local-cache`，`local-cache`子模块的`.d.ts`声明文件在`@react2rx/persistence/local-cache/index.d.ts`，而源码继续放在`@react2rx/persistence/dist/local-cache/index.mjs`
+
+

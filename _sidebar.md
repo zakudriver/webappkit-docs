@@ -9,7 +9,8 @@
   * [@react2rx/router](@react2rx_router.md)
   * [@react2rx/persistence](@react2rx_persistence.md)
   * [@react2rx/bootstrap](@react2rx_bootstrap.md)
-  
+
+
+* [说明](explanation.md)
 * [代码规范](code_style.md)
 * [升级建议](suggestions.md)
-* [疑难杂症](questions.md)

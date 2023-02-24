@@ -69,6 +69,7 @@
   actor.typeWith = <T extends Actor>(actor: T): string
   ```
 
+
 ## `requestActor`
 > `requestActor`对象基于`actor`对象的扩充，增加了一些属性。所以`requestActor`对象可以使用`actor`上的所有函数，但`requestActor`函数则只有`requestActor`对象能够使用。
 * `requestActor`函数本身。即创建`requestActor`对象。
@@ -137,6 +138,7 @@
   ): actor is RequestActorDone<RequestActor> | RequestActorFailed<RequestActor> | RequestActorStarted<RequestActor>
   ```
 
+
 ## `createContext`
 `createContext` 是一个简单的为快速创建带有**完整typescript类型**react context的`useContext`，`Provider`和`Context`的工具函数。
 
@@ -159,6 +161,7 @@ const useStore = <TState = any>(): Store<TState>
 
 *`useStore`hook函数*
 1. **返回**`Store`实例。
+
 
 ## `useObservableEffect`
 在react中便捷订阅`rxjs`的`Observable`对象的方式之一。一般通过`tap`操作符从订阅的`Observable`对象中读取数据。
@@ -185,6 +188,7 @@ useObservableEffect(() => {
   }, []);
 ```
 
+
 ## `useObservableLayoutEffect`
 在react中便捷订阅`rxjs`的`Observable`对象的方式之一。与`useObservableEffect`类似，区别在于是在`useEffect`还是`useLayoutEffect`中进行订阅`Observable`。
 
@@ -192,6 +196,7 @@ useObservableEffect(() => {
 // 函数签名
 const useObservableLayoutEffect = (effect: () => ArrayOrNone<Observable<any>>, deps: any[] = []): void
 ```
+
 
 ## `useObservable`
 在react中便捷订阅`rxjs`的`Observable`对象的方式之一。返回`useState`的state，state改变会触发渲染，方便直接在组件中消费`Observable`状态。
@@ -257,6 +262,7 @@ const useStoreConn = <T, TOutput>(
 ): Observable<TOutput>
 ```
 
+
 ## `useStoreSelector`
 与`useStoreConn`类似。省略订阅操作，直接返回`useState`的state。
 
@@ -272,6 +278,7 @@ const useStoreSelector = <T, TOutput>(mapper?: Mapper<T, TOutput>, deps: any[] =
 // 函数签名
 const withEqualFn = <T, TOutput>(mapper: (state: T) => TOutput, equalFn: EqualFn): Mapper<T, TOutput>
 ```
+
 
 ## `useEpic`
 从`Store`的状态流中通过`epic`函数获取流经的`actor`对象。方便根据`actor`对象上的信息进行一些操作。比如过滤到某个请求的`actor`对象来实现一旦发起某一个请求就执行xxx，或过滤到router操作的`actor`对象，实现每次跳转router就执行xxx。
@@ -293,6 +300,7 @@ interface Epic<TState = {}, TActor extends Actor = Actor> {
 2. 重新触发`Store`中`actor$`订阅的依赖。
 3. 无**返回**。
 
+
 ## `epicOn`
 `useEpic`的另一种形式。在`jsx`中调用。
 
@@ -300,6 +308,7 @@ interface Epic<TState = {}, TActor extends Actor = Actor> {
 // 函数签名
 const epicOn = (epic: Epic, inputs?: any[]): ReactElement
 ```
+
 
 ## `volume`
 创建`Volume`对象。`Volume`对象是基于`Observable`对象从中通过`Mapper`函数筛选并保存状态。
@@ -313,6 +322,7 @@ const volume = <T, TOutput>(
 ): Volume<T, TOutput>
 ```
 
+
 ## `compose`
 组装函数成中间件形式的洋葱模式函数。
 
@@ -320,6 +330,7 @@ const volume = <T, TOutput>(
 // 函数签名
 const compose = <T>(...fns: Array<(...args: T[]) => T>): ((args: T) => T)
 ```
+
 
 ## `shallowEqual`
 深度比较是否相等。
@@ -329,6 +340,7 @@ const compose = <T>(...fns: Array<(...args: T[]) => T>): ((args: T) => T)
 const shallowEqual = (objA: any, objB: any): boolean
 ```
 
+
 ## `composeEpics`
 将多个`epic`函数组装成一个`epic`函数。即为 上一个`epic`函数的结果为下一个`epic`函数的参数 层层嵌套的一个函数。 
 
@@ -336,6 +348,7 @@ const shallowEqual = (objA: any, objB: any): boolean
 // 函数签名
 const composeEpics = <T>(...epics: Array<Epic<T>>): Epic<T>
 ```
+
 
 ## `piper`
 适用于函数式编程的工具函数。
@@ -427,4 +440,99 @@ const pong = effectOnWith(namedWith(aof("test"), "pong"), "pong", (state = 0) =>
 
 // after
 const pong = piper("test", [aof], [namedWith, "pong"], [effectOnWith, "pong", (state = 0) => state + 1]);
+```
+
+## `createStoreState`
+`createStoreState`在`@react2rx/core`的子模块`@react2rx/core/state`
+
+基于`Store`状态流，创建一个全局可以接收和修改的单一状态。相同key标识的`storeState`即同一状态，修改同一状态所有`storeState`的`Observable`都将触发改变。
+  ```typescript
+  // 函数签名
+  const createStoreState = <T = undefined>(
+    so$: Store,
+    key: string,
+    initialState?: T | (() => T),
+    { statePolicy, expiresSecs }: StoreStateOptions = {},
+  ): readonly [Observable<T | undefined>, (arg: SetStateAction<T>) => void]
+
+  interface StoreStateOptions {
+    expiresSecs?: number;
+    cache?: Cache;
+  }
+
+  enum CacheEnum {
+    LOCAL_STORAGE = "LOCAL_STORAGE",
+    LOCAL_STORAGE_CROSS = "LOCALS_TORAGE_CROSS",
+    TEMP_STORAGE = "TEMP_STORAGE",
+  }
+
+  type Cache = CacheEnum | `${CacheEnum}`;
+  ```
+  
+1. `Store`实例。
+2. `key`字符串。相同`key`标识的`storeState`即同一状态。
+3. 初始状态。
+4. `StoreStateOptions`
+   * `expiresSecs`: 过期时间。单位:秒。
+   * `cache`: 缓存类型。
+     - 当`cache`为`CacheEnum.LOCAL_STORAGE`时，缓存在`localStorage`。
+     - 当`cache`为`CacheEnum.LOCAL_STORAGE_CROSS`时，缓存在`localStorage`，同步多tab页。
+     - 当`cache`为`CacheEnum.TEMP_STORAGE`时，缓存在`Map`变量。
+5. **返回**元祖 [`Observable`对象, `set`状态的方法]。
+
+
+## `useStoreState`
+`useStoreState`在`@react2rx/core`的子模块`@react2rx/core/state`
+
+是`createStoreState`在`react`中的`hook`易用版本。省略`Store`参数并直接返回`useState`的`state`。
+
+
+```typescript
+// 函数签名
+const useStoreState = <T>(
+  key: string,
+  initialState?: T | (() => T),
+  options?: StoreStateOptions,
+): readonly [T | undefined, (arg: SetStateAction<T>) => void]
+```
+
+
+## `stateMachine`
+`stateMachine`在`@react2rx/core`的子模块`@react2rx/core/state`
+
+基于`Store`状态流，创建一个包含诸多方法的状态机。
+
+```typescript
+// 函数签名
+    const stateMachine =
+    <
+      TState,
+      TMakeStorageKey extends (group: string, ...args: any[]) => string = (group: string, ...args: any[]) => string,
+      TName extends Parameters<TMakeStorageKey>[1] = undefined,
+    >(
+    group: string,
+    initialState?: TState,
+    makeStorageKey: TMakeStorageKey = ((group: string) => group) as TMakeStorageKey,
+  ) =>
+  <TInvokers extends Record<string, Invoker<TState>>>(invokers: TInvokers): {
+      actors: Record<P in keyof TInvokers, Actor<
+          Parameters<TInvokers[keyof TInvokers]>[0],
+          Parameters<TInvokers[keyof TInvokers]>[0] extends undefined
+            ? StateMachineActorOpts
+            : Parameters<TInvokers[keyof TInvokers]>[0] & StateMachineActorOpts
+        >>,
+      useState: UseState<TName, TState, TInvokers>,
+    }
+
+    type UseState<TName, TState, TInvokers extends Record<string, Invoker<TState>>> = {
+      (
+        ...args: TName extends string
+        ? [TName, (undefined | TState | (() => TState))?]
+        : [undefined?, (undefined | TState | (() => TState))?]
+      ): readonly [
+        Volume<Record<string, TState>, TState>,
+        Record<
+          keyof TInvokers,
+          (arg: Parameters<TInvokers[keyof TInvokers]>[0], opts?: Parameters<TInvokers[keyof TInvokers]>[1]) => void>];
+    };
 ```
